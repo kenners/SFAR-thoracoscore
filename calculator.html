@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>SFAR's Thoracoscore Calculator</title>
+	<meta name="description" content="The Société Française d'Anesthésie et de Réanimation original Thoracoscore calculator.">
+
+	<script language=javascript>
+		function CalcAGE(form) {
+			form.zage.value = form.age[form.age.selectedIndex].value
+			form.zmort.value = CalcMort(form)
+		}
+	
+		function CalcSEX(form) {
+			form.zsex.value = form.sex[form.sex.selectedIndex].value
+			form.zmort.value = CalcMort(form)
+		}
+	
+		function CalcASA(form) {
+			form.zasa.value = form.asa[form.asa.selectedIndex].value
+			form.zmort.value = CalcMort(form)
+		}
+		
+		function CalcPERFORMANCE(form) {
+			form.zperformance.value = form.performance[form.performance.selectedIndex].value
+			form.zmort.value = CalcMort(form)
+		}
+	
+		function CalcDYSPNEA(form) {
+			form.zdyspnea.value = form.dyspnea[form.dyspnea.selectedIndex].value
+			form.zmort.value = CalcMort(form)
+		}
+	
+		function CalcPRIORITY(form) {
+			form.zpriority.value = form.priority[form.priority.selectedIndex].value
+			form.zmort.value = CalcMort(form)
+		}
+	
+		function CalcPROCEDURE(form) {
+			form.zprocedure.value = form.procedure[form.procedure.selectedIndex].value
+			form.zmort.value = CalcMort(form)
+		}
+
+		function CalcDIAGNOSIS(form) {
+			form.zdiagnosis.value = form.diagnosis[form.diagnosis.selectedIndex].value
+			form.zmort.value = CalcMort(form)
+		}
+	
+		function CalcCOMORBIDITY(form) {
+			form.zcomorbidity.value = form.comorbidity[form.comorbidity.selectedIndex].value
+			form.zmort.value = CalcMort(form)
+		}
+
+		function CalcMort(form) {
+			z = eval(form.zage.value)
+			z = z + eval(form.zsex.value)
+			z = z + eval(form.zasa.value)
+			z = z + eval(form.zperformance.value)
+			z = z + eval(form.zdyspnea.value)
+			z = z + eval(form.zpriority.value)
+			z = z + eval(form.zprocedure.value)
+			z = z + eval(form.zdiagnosis.value)
+			z = z + eval(form.zcomorbidity.value)
+			z = z -7.3737
+			z = Math.exp(z) / (1 + Math.exp(z))
+			z = "Predict.Death Rate = "+Fmt(100 * z) + " %"
+			form.zmort.value= z
+			return z
+		}
+
+		function Fmt(x) {
+			var v
+			if(x>=0) { v=''+(x+0.05)} else { v=''+(x-0.05) }
+			return v.substring(0,v.indexOf('.')+3)
+		}	
+	</script>
+</head>
+<body>
+		<header>
+			<p>Example implementation of the Société Française d'Anesthésie et de Réanimation's original Thoracoscore calculator.</p>
+		</header>
+  		<div role="main">
+			<form action="" method="post">
+				<table>
+					<tbody>
+						<tr>
+							<td>Variables</td>
+							<td>Values</td>
+							<td>Beta</td>
+						</tr>
+						<tr>
+							<td>Age</td>
+							<td>
+								<select name="age" onChange="CalcAGE(this.form)">
+									<option value="0"> &lt; 55</option>
+									<option value="0.7679">55 - 65</option>
+									<option value="1.0073">&gt; 65</option>
+								</select>
+							</td>
+							<td>
+								 <input type="text" name="zage" value="0">
+							</td>
+						</tr>
+						<tr>
+							<td>Sex</td>
+							<td>
+								<select name="sex" onChange="CalcSEX(this.form)">
+									<option value="0">Female</option>
+									<option value="0.4505">Male</option>
+								</select>
+							</td>
+							<td>
+								<input type="text" name="zsex" value="0">
+							</td>
+						</tr>
+						<tr>
+							<td>ASA Classification</td>
+							<td>
+								<select name="asa" onChange="CalcASA(this.form)">
+									<option value="0">&lt;= 2</option>
+									<option value="0.6057">&gt;= 3</option>
+								</select>
+							</td>
+							<td>
+								<input type="text" name="zasa" value="0">
+							</td>
+						</tr>
+						<tr>
+							<td>Performance Status Classification</td>
+							<td>
+								<select name="performance" onChange="CalcPERFORMANCE(this.form)">
+									<option value="0">&lt;= 2</option>
+									<option value="0.689">&gt;= 3</option>
+								</select>
+							</td>
+							<td>
+								<input type="text" name="zperformance" value="0">
+							</td>
+						</tr>
+						<tr>
+							<td>Dyspnoea Score</td>
+							<td>
+								<select name="dyspnea" onChange="CalcDYSPNEA(this.form)">
+									<option value="0">&lt;= 2</option>
+									<option value="0.9075">&gt;= 3</option>
+								</select>
+							</td>
+							<td>
+								<input type="text" name="zdyspnea" value="0">
+							</td>
+						</tr>
+						<tr>
+							<td>Priority of Surgery</td>
+							<td>
+								<select name="priority" onChange="CalcPRIORITY(this.form)">
+									<option value="0">Elective</option>
+									<option value="0.8443">Urgent/Emergency</option>
+								</select>
+							</td>
+							<td>
+								<input type="text" name="zpriority" value="0">
+							</td>
+						</tr>
+						<tr>
+							<td>Procedure</td>
+							<td>
+								<select name="procedure" onChange="CalcPROCEDURE(this.form)">
+									<option value="0">Other</option>
+									<option value="1.2176">Pneumonectomy</option>
+								</select>
+							</td>
+							<td>
+								<input type="text" name="zprocedure" value="0">
+							</td>
+						</tr>
+						<tr>
+							<td>Diagnosis Group</td>
+							<td>
+								<select name="diagnosis" onChange="CalcDIAGNOSIS(this.form)">
+									<option value="0">Benign</option>
+									<option value="1.2423">Malignant</option>
+								</select>
+							</td>
+							<td>
+								<input type="text" name="zdiagnosis" value="0">
+							</td>
+						</tr>
+						<tr>
+							<td>Comorbidity Score</td>
+							<td>
+								<select name="comorbidity" onChange="CalcCOMORBIDITY(this.form)">
+									<option value="0">0</option>
+									<option value="0.7447">&lt;= 2</option>
+									<option value="0.9065">&gt;= 3</option>
+								</select>
+							</td>
+							<td>
+								<input type="text" name="zcomorbidity" value="0">
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="reset" value="Clear">
+							</td>
+							<td>Thoracoscore:  <input type="text" name="zmort" value="0" size="30"></td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+		</div>
+	<footer>
+	</footer>
+</body>
+</html>
