@@ -8,7 +8,7 @@ The [Société Française d’Anesthésie et de Réanimation][1] provides Google
 
 SFAR's Thoracoscore calculator uses the following function to attempt to round the calculated score to 2 decimal places:
 	
-	```javascript
+```javascript
 	function Fmt(x) {
 		var v
 		if (x >= 0) {
@@ -18,15 +18,15 @@ SFAR's Thoracoscore calculator uses the following function to attempt to round t
 		}
 		return v.substring(0,v.indexOf('.')+3)
 	}
-	```
+```
 
 ### Files
 
 We provide 3 files:
 
- - [thoracoscore2.php] - The original source from SFAR's website. Accessed 2012-04-15 19:00.
- - calculator.html - Tidied version of the original calculator.
- - fixed.html - Patched version of calculator.html
+ - [thoracoscore2.php][8] - The original source from SFAR's website. Accessed 2012-04-15 19:00.
+ - [calculator.html][9] - Tidied version of the original calculator.
+ - [fixed.html][10] - Patched version of calculator.html
 
 ### Presentation
 
@@ -53,3 +53,6 @@ Correspondance should be addressed to [Kenrick](@kenners): kenrickturner[at]nhs.
 [5]: http://www.scts.org/annual_meeting "SCTS Annual Meeting 2012"
 [6]: http://speakerdeck.com/u/kenrick/p/an-error-in-a-web-based-thoracoscore-calculator "Our slides from the SCTS Annual Meeting"
 [7]: https://speakerd.s3.amazonaws.com/presentations/4f7ef74fe711f6001f009075/thumb_slide_0.jpg "Title slide from our presentation"
+[8]: https://github.com/kenners/SFAR-thoracoscore/blob/master/thoracoscore2.php
+[9]: https://github.com/kenners/SFAR-thoracoscore/blob/master/calculator.html
+[10]: https://github.com/kenners/SFAR-thoracoscore/blob/master/fixed.html
