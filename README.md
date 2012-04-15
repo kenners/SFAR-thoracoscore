@@ -20,7 +20,7 @@ SFAR's Thoracoscore calculator uses the [following function][11] to attempt to r
 	}
 ```
 
-However, as `x` is _always_ ≥0, 0.05 is _always_ added to `v` before the `substring` method truncates the string to 2 places beyond the `.` (i.e. to 2 decimal places).
+However, as `x` is _always_ ≥0, 0.05 is _always_ added to `x` before the `substring` method truncates the string to 2 places beyond the `.` (i.e. to 2 decimal places).
 
 Instead of _rounding_ to 2 decimal places, this function __adds__ 0.05 and then __truncates__ the result to 2 decimal places.
 
@@ -36,7 +36,7 @@ We suggest the alternative:
 
 We provide 3 files:
 
- - [thoracoscore2.php][8] - The original source from SFAR's website. Accessed 2012-04-15 19:00.
+ - [thoracoscore2.php][8] - The original source from SFAR's website: http://www.sfar.org/scores2/thoracoscore2.php. Accessed 2012-04-15 19:00.
  - [calculator.html][9] - Tidied version of the original calculator.
  - [fixed.html][10] - Patched version of calculator.html
 
