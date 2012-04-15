@@ -37,14 +37,14 @@ Our slides are [on SpeakerDeck][6]:
 
 ### Authors
 
- - [Kenrick Turner](@kenners), Norfolk & Norwich University Hospital
- - [Andrew Ho](@andrewlkho), St. George's Hospital, London
- - [Gunnar Rø](@gulfa), University of Durham
+ - Kenrick Turner (@kenners), Norfolk & Norwich University Hospital
+ - Andrew Ho (@andrewlkho), St. George's Hospital, London
+ - Gunnar Rø (@gulfa), University of Durham
  - Filip Van Tornout, Norfolk & Norwich University Hospital
 
 ### Contact
 
-Correspondance should be addressed to [Kenrick](@kenners): kenrickturner[at]nhs.net
+Correspondance should be addressed to Kenrick: kenrickturner[at]nhs.net
 
 [1]: http://www.sfar.org "Société Française d’Anesthésie et de Réanimation's website"
 [2]: http://www.google.com/search?q=thoracoscore "Search Google for 'thoracoscore'"
