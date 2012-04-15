@@ -7,7 +7,8 @@ The [Société Française d’Anesthésie et de Réanimation][1] provides Google
 ### The Error
 
 SFAR's Thoracoscore calculator uses the following function to attempt to round the calculated score to 2 decimal places:
-
+	
+	```javascript
 	function Fmt(x) {
 		var v
 		if (x >= 0) {
@@ -17,12 +18,13 @@ SFAR's Thoracoscore calculator uses the following function to attempt to round t
 		}
 		return v.substring(0,v.indexOf('.')+3)
 	}
+	```
 
 ### Files
 
 We provide 3 files:
 
- - thoracoscore2.php - The original source from SFAR's website. Accessed 2012-04-15 19:00.
+ - [thoracoscore2.php] - The original source from SFAR's website. Accessed 2012-04-15 19:00.
  - calculator.html - Tidied version of the original calculator.
  - fixed.html - Patched version of calculator.html
 
@@ -31,18 +33,18 @@ We provide 3 files:
 We presented our findings at the Society for Cardiothoracic Surgery for Great Britain & Ireland's [2012 Annual Meeting][5].
 Our slides are [on SpeakerDeck][6]:
 
-<script async class="speakerdeck-embed" data-id="4f7ef74fe711f6001f009075" data-ratio="1.3333333333333333" src="//speakerdeck.com/assets/embed.js"></script>
+[![Title slide][7]][6]
 
 ### Authors
 
- - Kenrick Turner (@kenners), Norfolk & Norwich University Hospital
- - Andrew Ho (@andrewlkho), St. George's Hospital, London
- - Gunnar Rø (@gulfa), University of Durham
+ - [Kenrick Turner](@kenners), Norfolk & Norwich University Hospital
+ - [Andrew Ho](@andrewlkho), St. George's Hospital, London
+ - [Gunnar Rø](@gulfa), University of Durham
  - Filip Van Tornout, Norfolk & Norwich University Hospital
 
 ### Contact
 
-Correspondance should be addressed to Kenrick (@kenners) kenrickturner@nhs.net
+Correspondance should be addressed to [Kenrick](@kenners): kenrickturner[at]nhs.net
 
 [1]: http://www.sfar.org "Société Française d’Anesthésie et de Réanimation's website"
 [2]: http://www.google.com/search?q=thoracoscore "Search Google for 'thoracoscore'"
@@ -50,3 +52,4 @@ Correspondance should be addressed to Kenrick (@kenners) kenrickturner@nhs.net
 [4]: http://www.sfar.org/scores2/thoracoscore2.php  "SFAR's Thoracoscore calculator"
 [5]: http://www.scts.org/annual_meeting "SCTS Annual Meeting 2012"
 [6]: http://speakerdeck.com/u/kenrick/p/an-error-in-a-web-based-thoracoscore-calculator "Our slides from the SCTS Annual Meeting"
+[7]: https://speakerd.s3.amazonaws.com/presentations/4f7ef74fe711f6001f009075/thumb_slide_0.jpg "Title slide from our presentation"
