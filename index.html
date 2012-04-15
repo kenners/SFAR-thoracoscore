@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="An error in a web-based Thoracoscore calculator : Bugfix for the rounding error in SFAR's Thoracoscore calculator" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>An error in a web-based Thoracoscore calculator</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/kenners/SFAR-thoracoscore">Fork Me on GitHub</a>
+
+          <h1 id="project_title">An error in a web-based Thoracoscore calculator</h1>
+          <h2 id="project_tagline">Bugfix for the rounding error in SFAR's Thoracoscore calculator</h2>
+
+          <section id="downloads">
+            <a class="zip_download_link" href="https://github.com/kenners/SFAR-thoracoscore/zipball/master">Download this project as a .zip file</a>
+            <a class="tar_download_link" href="https://github.com/kenners/SFAR-thoracoscore/tarball/master">Download this project as a tar.gz file</a>
+          </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h2>Bugfixes for SFAR's Thoracoscore calculator</h2>
+
+<h3>tl;dr</h3>
+
+<p>The <a href="http://www.sfar.org" title="Société Française d’Anesthésie et de Réanimation's website">Société Française d’Anesthésie et de Réanimation</a> provides Google's <a href="http://www.google.com/search?q=thoracoscore" title="Search Google for 'thoracoscore'">top-ranked result</a> for a <a href="http://dx.doi.org/10.1016/j.jtcvs.2006.09.020" title="Falcoz et al. The Thoracic Surgery Scoring System. J Thorac Cardiovasc Surg. 2007 Feb;133(2):325-32">Thoracoscore</a> calculator. <a href="http://www.sfar.org/scores2/thoracoscore2.php" title="SFAR's Thoracoscore calculator">Their Thorascore calculator</a> has a systematic error that introduces an addition of 0.05% to all scores that it calculates. We provide a patched version of their calculator's Javascript that corrects this error. We presented our findings at the Society for Cardiothoracic Surgery for Great Britain &amp; Ireland's <a href="http://www.scts.org/annual_meeting" title="SCTS Annual Meeting 2012">2012 Annual Meeting</a>.</p>
+
+<h3>The Error</h3>
+
+<p>SFAR's Thoracoscore calculator uses the <a href="https://github.com/kenners/SFAR-thoracoscore/blob/master/thoracoscore2.php#L114">following function</a> to attempt to round the calculated score (<code>x</code>) to 2 decimal places:</p>
+
+<div class="highlight">
+<pre>    <span class="kd">function</span> <span class="nx">Fmt</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">v</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">x</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">v</span> <span class="o">=</span> <span class="s1">''</span> <span class="o">+</span> <span class="p">(</span><span class="nx">x</span> <span class="o">+</span> <span class="mf">0.05</span><span class="p">)</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">v</span> <span class="o">=</span> <span class="s1">''</span> <span class="o">+</span> <span class="p">(</span><span class="nx">x</span> <span class="o">-</span> <span class="mf">0.05</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nx">v</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nx">v</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)</span><span class="o">+</span><span class="mi">3</span><span class="p">)</span>
+    <span class="p">}</span>
+</pre>
+</div>
+
+
+<p>However, as <code>x</code> is <em>always</em> ≥0, 0.05 is <em>always</em> added to <code>x</code> before the <code>substring</code> method truncates the string to 2 places beyond the <code>.</code> (i.e. to 2 decimal places).</p>
+
+<p>Instead of <em>rounding</em> to 2 decimal places, this function <strong>adds</strong> 0.05 and then <strong>truncates</strong> the result to 2 decimal places.</p>
+
+<p>We suggest the alternative:</p>
+
+<div class="highlight">
+<pre>    <span class="kd">function</span> <span class="nx">Fmt</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">x</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span><span class="p">;</span>
+    <span class="p">}</span>
+</pre>
+</div>
+
+
+<h3>Files</h3>
+
+<p>We provide 3 files:</p>
+
+<ul>
+<li>
+<a href="https://github.com/kenners/SFAR-thoracoscore/blob/master/thoracoscore2.php">thoracoscore2.php</a> - The original source from SFAR's website: <a href="http://www.sfar.org/scores2/thoracoscore2.php">http://www.sfar.org/scores2/thoracoscore2.php</a>. Accessed 2012-04-15 19:00.</li>
+<li>
+<a href="https://github.com/kenners/SFAR-thoracoscore/blob/master/calculator.html">calculator.html</a> - Tidied version of the original calculator.</li>
+<li>
+<a href="https://github.com/kenners/SFAR-thoracoscore/blob/master/fixed.html">fixed.html</a> - Patched version of calculator.html</li>
+</ul><h3>Presentation</h3>
+
+<p>We presented our findings at the Society for Cardiothoracic Surgery for Great Britain &amp; Ireland's <a href="http://www.scts.org/annual_meeting" title="SCTS Annual Meeting 2012">2012 Annual Meeting</a>.
+Our slides are <a href="http://speakerdeck.com/u/kenrick/p/an-error-in-a-web-based-thoracoscore-calculator" title="Our slides from the SCTS Annual Meeting">on SpeakerDeck</a>:</p>
+
+<p><a href="http://speakerdeck.com/u/kenrick/p/an-error-in-a-web-based-thoracoscore-calculator" title="Our slides from the SCTS Annual Meeting"><img src="https://speakerd.s3.amazonaws.com/presentations/4f7ef74fe711f6001f009075/thumb_slide_0.jpg" alt="Title slide" title="Title slide from our presentation"></a></p>
+
+<h3>Authors</h3>
+
+<ul>
+<li>Kenrick Turner (<a href="https://github.com/kenners" title="Kenrick on GitHub">@kenners</a>), Norfolk &amp; Norwich University Hospital</li>
+<li>Andrew Ho (<a href="https://github.com/andrewlkho" title="Andrew on GitHub">@andrewlkho</a>), St. George's Hospital, London</li>
+<li>Gunnar Rø (<a href="https://github.com/gulfa" title="Gunnar on GitHub">@gulfa</a>), University of Durham</li>
+<li>Filip Van Tornout, Norfolk &amp; Norwich University Hospital</li>
+</ul><h3>Contact</h3>
+
+<p>Correspondance should be addressed to Kenrick: kenrickturner[at]nhs.net</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">An error in a web-based Thoracoscore calculator maintained by <a href="https://github.com/kenners">kenners</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
