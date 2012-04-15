@@ -69,16 +69,14 @@
 		}
 
 		function Fmt(x) {
-			var v
-			if(x>=0) { v=''+(x+0.05)} else { v=''+(x-0.05) }
-			return v.substring(0,v.indexOf('.')+3)
+			return Math.round(x * 100) / 100;
 		}	
 	</script>
 </head>
 <body>
 		<header>
-			<h2>Original SFAR Thoracoscore calculator</h2>
-			<p>Example implementation of the Société Française d'Anesthésie et de Réanimation's original Thoracoscore calculator.</p>
+			<h2>Patched SFAR Thoracoscore calculator</h2>
+			<p>Example implementation of a patched version of Société Française d'Anesthésie et de Réanimation's original Thoracoscore calculator.</p>
 		</header>
   		<div role="main">
 			<form action="" method="post">

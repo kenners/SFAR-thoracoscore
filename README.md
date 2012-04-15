@@ -6,7 +6,7 @@ The [Société Française d’Anesthésie et de Réanimation][1] provides Google
 
 ### The Error
 
-SFAR's Thoracoscore calculator uses the following function to attempt to round the calculated score to 2 decimal places:
+SFAR's Thoracoscore calculator uses the [following function][11] to attempt to round the calculated score (`x`) to 2 decimal places:
 	
 ```javascript
 	function Fmt(x) {
@@ -17,6 +17,18 @@ SFAR's Thoracoscore calculator uses the following function to attempt to round t
 			v = '' + (x - 0.05)
 		}
 		return v.substring(0,v.indexOf('.')+3)
+	}
+```
+
+However, as `x` is _always_ ≥0, 0.05 is _always_ added to `v` before the `substring` method truncates the string to 2 places beyond the `.` (i.e. to 2 decimal places).
+
+Instead of _rounding_ to 2 decimal places, this function __adds__ 0.05 and then __truncates__ the result to 2 decimal places.
+
+We suggest the alternative:
+
+```javascript
+	function Fmt(x) {
+		return Math.round(x * 100) / 100;
 	}
 ```
 
@@ -37,9 +49,9 @@ Our slides are [on SpeakerDeck][6]:
 
 ### Authors
 
- - Kenrick Turner (@kenners), Norfolk & Norwich University Hospital
- - Andrew Ho (@andrewlkho), St. George's Hospital, London
- - Gunnar Rø (@gulfa), University of Durham
+ - Kenrick Turner ([@kenners][12]), Norfolk & Norwich University Hospital
+ - Andrew Ho ([@andrewlkho][13]), St. George's Hospital, London
+ - Gunnar Rø ([@gulfa][14]), University of Durham
  - Filip Van Tornout, Norfolk & Norwich University Hospital
 
 ### Contact
@@ -56,3 +68,7 @@ Correspondance should be addressed to Kenrick: kenrickturner[at]nhs.net
 [8]: https://github.com/kenners/SFAR-thoracoscore/blob/master/thoracoscore2.php
 [9]: https://github.com/kenners/SFAR-thoracoscore/blob/master/calculator.html
 [10]: https://github.com/kenners/SFAR-thoracoscore/blob/master/fixed.html
+[11]: https://github.com/kenners/SFAR-thoracoscore/blob/master/thoracoscore2.php#L114
+[12]: https://github.com/kenners "Kenrick on GitHub"
+[13]: https://github.com/andrewlkho "Andrew on GitHub"
+[14]: https://github.com/gulfa "Gunnar on GitHub"
