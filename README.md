@@ -52,6 +52,7 @@ Our slides are [on SpeakerDeck][6]:
  - Kenrick Turner ([@kenners][12]), Norfolk & Norwich University Hospital
  - Andrew Ho ([@andrewlkho][13]), St. George's Hospital, London
  - Gunnar Rø ([@gulfa][14]), University of Durham
+ - Martin Turner
  - Filip Van Tornout, Norfolk & Norwich University Hospital
 
 ### Contact
