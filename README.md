@@ -20,9 +20,7 @@ SFAR's Thoracoscore calculator uses the [following function][11] to attempt to r
 	}
 ```
 
-However, as `x` is _always_ ≥0, 0.05 is _always_ added to `x` before the `substring` method truncates the string to 2 places beyond the `.` (i.e. to 2 decimal places).
-
-Instead of _rounding_ to 2 decimal places, this function __adds__ 0.05 and then __truncates__ the result to 2 decimal places.
+As `x` is always ≥0, this adds 0.05 to `x` before the `substring` method truncates the string to 2 decimal places.  This does not round to 2 decimal places.  What was perhaps meant was to add 0.005 before truncating to 2 decimal places; this would be a valid rounding function.
 
 We suggest the alternative:
 
